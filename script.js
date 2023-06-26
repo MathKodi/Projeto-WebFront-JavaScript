@@ -12,7 +12,12 @@ const inpEditTit = document.querySelector(".inpEditTit");
 const inpEditDesc = document.querySelector(".inpEditDesc");
 const inpEditImg = document.querySelector(".inpEditImg");
 const postagens = document.querySelector(".postagens");
+const btPesq = document.querySelector(".btBusca");
+const campoBusca = document.querySelector(".campoBusca");
+const sugestoes = document.querySelector(".sugestoes");
+
 var salvaAdc = []; 
+var salvaAdcHTML = [];
 
 botao.addEventListener("click",function(){
     caixinha.className = "dialog-mostrar";
@@ -54,6 +59,8 @@ adiciona.addEventListener("click", function(){
     pExc.textContent = "Excluir";
     criaPost.classList.add("classDin");
 
+    salvaAdcHTML.push(criaPost);
+
     exc.appendChild(pExc);
     editBt.appendChild(pEdit);
     criaPost.appendChild(tit);
@@ -94,8 +101,22 @@ adiciona.addEventListener("click", function(){
 
         });
     })
-    
-});
-
-
-
+})
+campoBusca.addEventListener("input", function() {
+    var pesquisa = campoBusca.value.toLowerCase();
+  
+    var postagensFiltradas = salvaAdcHTML.filter(function(postagem) {
+      var titulo = postagem.querySelector("h1").textContent.toLowerCase();
+      var descricao = postagem.querySelector("p").textContent.toLowerCase();
+  
+      return titulo.includes(pesquisa) || descricao.includes(pesquisa);
+    });
+  
+    while (postagens.firstChild) {
+      postagens.firstChild.remove();
+    }
+  
+    postagensFiltradas.forEach(function(postagem) {
+      postagens.appendChild(postagem);
+    });
+  });

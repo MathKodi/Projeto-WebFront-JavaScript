@@ -221,6 +221,12 @@ body{
 .edit{
     display: none;
 }
+.buscaCss{
+    display: flex;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+}
 .edit-mostrar{
     position: absolute;
     border: solid;
