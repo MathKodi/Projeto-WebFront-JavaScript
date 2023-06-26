@@ -1,3 +1,4 @@
+/*Variaveis constantes*/
 const botao = document.querySelector(".botaoadiciona");
 const caixinha = document.querySelector(".dialog");
 const edit = document.querySelector(".edit");
@@ -18,10 +19,11 @@ const sugestoes = document.querySelector(".sugestoes");
 const warn = document.querySelector(".warn");
 const editWarn = document.querySelector(".editWarn");
 
+/*Array*/
 var salvaAdc = []; 
 var salvaAdcHTML = [];
 
-document.addEventListener("DOMContentLoaded", function(){
+document.addEventListener("DOMContentLoaded", function(){   /*Evento que ocorre quando Estrutura DOM está pronta p JavaScript*/
     if(localStorage.key){
         salvaAdc = JSON.parse(localStorage.getItem("key"));
         if (salvaAdc == null){
@@ -30,38 +32,91 @@ document.addEventListener("DOMContentLoaded", function(){
         conteudo(); 
     };
 })
-botao.addEventListener("click",function(){
+botao.addEventListener("click",function(){ /*Clicar no Botão "Adicionar"*/
     caixinha.className = "dialog-mostrar";
     inpTit.value = "";
     inpDesc.value = "";
     inpImg.value = "";
 });
-
-sair.addEventListener("click", function(){
+sair.addEventListener("click", function(){ /* Clicar no botão sair */
     caixinha.className = "dialog";
 });
-editSair.addEventListener("click", function(){
+editSair.addEventListener("click", function(){ /* Clicar no botão sair */
     edit.className = "edit";
 });
-function adicionar(titulo, descricao, link){
-    this.titulo = titulo;
-    this.descricao = descricao;
-    this.link = link;
+
+//Classe 
+class Operacoes{
+    
+    adicionar(titulo, descricao, link){
+        this.titulo = titulo;
+        this.descricao = descricao;
+        this.link = link;
+    }
+    excluir(div){
+            if (div.classList.contains("classDin")){
+                div.remove();
+            }
+            for (var i = 0; i < salvaAdc.length; i++) {
+                if (salvaAdc[i].titulo === div.querySelector("h1").textContent && salvaAdc[i].descricao === div.querySelector("p").textContent) {
+                  salvaAdc.splice(i, 1);
+                  salvaAdcHTML.splice(i, 1);
+                  break;
+                }
+            }
+            localStorage.setItem("key", JSON.stringify(salvaAdc));
+    }
+    editar(div){
+        edit.className = "edit-mostrar";
+        var editTit = div.querySelector("h1").innerHTML;
+        var descTit = div.querySelector("p").innerHTML;
+        var imgTit = div.querySelector("img").src;
+        //Recuperar valor - ponteiro
+        inpEditTit.value = editTit;
+        inpEditDesc.value = descTit;
+        inpEditImg.value = imgTit;
+        att.addEventListener("click",function(){
+            if(inpEditTit.value.trim() == "" || inpEditDesc.value.trim() == "" || inpEditImg.value.trim() == ""){
+                editWarn.className = "editWarn-mostrar";
+                setTimeout(function(){
+                    editWarn.className = "editWarn";
+                }, 3000);
+            }
+            else{
+                var novoTit = inpEditTit.value;
+                var novoDesc = inpEditDesc.value;
+                var novaImg = inpEditImg.value;
+
+                div.querySelector("h1").innerHTML = novoTit;
+                div.querySelector("p").innerHTML = novoDesc;
+                div.querySelector("img").src = novaImg;
+
+                for (var i = 0; i < salvaAdc.length; i++) {
+                    if (salvaAdc[i].titulo == editTit && salvaAdc[i].descricao == descTit) {
+                        salvaAdc[i].titulo = novoTit;
+                        salvaAdc[i].descricao = novoDesc;
+                        salvaAdc[i].link = novaImg;
+                        break;
+                    }
+                }
+                localStorage.setItem("key", JSON.stringify(salvaAdc));
+            }
+        })
+    }
+
 }
-adiciona.addEventListener("click", function(){
-    if(inpTit.value.trim() == "" || inpDesc.value.trim() == "" || inpImg.value.trim() == ""){
+
+adiciona.addEventListener("click", function(){ /*Função para Adicionar um objeto*/
+    if(inpTit.value.trim() == "" || inpDesc.value.trim() == "" || inpImg.value.trim() == "" ){
         warn.className = "warn-mostrar"
         setTimeout(function(){
             warn.className = "warn";
         }, 3000);
     }
     else{
-        let adc = new adicionar(inpTit.value, inpDesc.value, inpImg.value);
-        
-        salvaAdc.push(adc);
-
-        localStorage.setItem("key", JSON.stringify(salvaAdc));
-
+        let op = new Operacoes();
+        op.adicionar(inpTit.value, inpDesc.value, inpImg.value);
+        //Criar elementos html
         let criaPost = document.createElement("div");
         let tit = document.createElement("h1");
         let desc = document.createElement("p");
@@ -70,16 +125,18 @@ adiciona.addEventListener("click", function(){
         let pExc = document.createElement("p");
         let editBt = document.createElement("button");
         let pEdit = document.createElement("p");
-
-        tit.innerHTML = adc.titulo;
-        desc.innerHTML = adc.descricao;
-        img.src = adc.link;
+        //atribuir valores nos elementos
+        tit.innerHTML = op.titulo;
+        desc.innerHTML = op.descricao;
+        img.src = op.link;
         pEdit.textContent = "Editar";
         pExc.textContent = "Excluir";
         criaPost.classList.add("classDin");
-
+        //Salvar Conteúdo na Array e no local Storage
+        salvaAdc.push(op);
+        localStorage.setItem("key", JSON.stringify(salvaAdc));
         salvaAdcHTML.push(criaPost);
-
+        //Organização dos elementos html
         exc.appendChild(pExc);
         editBt.appendChild(pEdit);
         criaPost.appendChild(tit);
@@ -88,68 +145,13 @@ adiciona.addEventListener("click", function(){
         criaPost.appendChild(exc);
         criaPost.appendChild(editBt);
         postagens.appendChild(criaPost);
-
+        //Excluir o conteúdo 
         exc.addEventListener("click", function(){
-            var excDiv = this.parentNode;
-            if (excDiv.classList.contains("classDin")){
-                excDiv.parentNode.removeChild(excDiv);
-            }
-            for (var i = 0; i < salvaAdc.length; i++) {
-                if (salvaAdc[i].titulo === excDiv.querySelector("h1").textContent.toLowerCase() && salvaAdc[i].descricao === excDiv.querySelector("p").textContent.toLowerCase()) {
-                  salvaAdc.splice(i, 1);
-                  salvaAdcHTML.splice(i, 1);
-                  break;
-                }
-              }
-              localStorage.setItem("key", JSON.stringify(salvaAdc));
+            op.excluir(criaPost, );
         });
+        //Editar o conteúdo
         editBt.addEventListener("click", function(){
-
-            edit.className = "edit-mostrar";
-            
-            var divPai = this.parentNode;
-
-            let editTit = divPai.querySelector("h1");
-            let descTit = divPai.querySelector("p");
-            let imgTit = divPai.querySelector("img");
-
-            inpEditTit.value = editTit.innerHTML;
-            inpEditDesc.value = descTit.innerHTML;
-            inpEditImg.value = imgTit.src;
-
-            
-            att.addEventListener("click", function(){
-                if(inpEditTit.value.trim() == "" || inpEditDesc.value.trim() == "" || inpEditImg.value.trim() == ""){
-                    editWarn.className = "editWarn-mostrar";
-                    setTimeout(function(){
-                        editWarn.className = "editWarn";
-                    }, 3000);
-                }
-                else{
-                    var oldTit = tit.innerHTML;
-                    var oldDesc = desc.innerHTML;
-
-                    var novoTit = inpEditTit.value;
-                    var novoDesc = inpEditDesc.value;
-                    var novaImg = inpEditImg.value;
-    
-                    tit.innerHTML = novoTit;
-                    desc.innerHTML = novoDesc;
-                    imgTit.src = novaImg;
-
-                    for (var i = 0; i < salvaAdc.length; i++) {
-                        if (salvaAdc[i].titulo === oldTit && salvaAdc[i].descricao === oldDesc) {
-                          salvaAdc[i].titulo = novoTit;
-                          salvaAdc[i].descricao = novoDesc;
-                          salvaAdc[i].link = novaImg;
-                          console.log(1);
-                          break;
-                        }
-                    }
-
-                    localStorage.setItem("key", JSON.stringify(salvaAdc));
-                }
-            });
+            op.editar(criaPost);
         })
     }
 })
@@ -174,6 +176,7 @@ campoBusca.addEventListener("input", function() {
 
   function conteudo(){
     for(let i=0; i<salvaAdc.length; i++){
+        op = new Operacoes();
         let criaPost = document.createElement("div");
         let tit = document.createElement("h1");
         let desc = document.createElement("p");
@@ -202,54 +205,15 @@ campoBusca.addEventListener("input", function() {
         postagens.appendChild(criaPost);
 
         exc.addEventListener("click", function(){
-            var excDiv = this.parentNode;
-            if (excDiv.classList.contains("classDin")){
-                excDiv.parentNode.removeChild(excDiv);
-            }
-            for (var i = 0; i < salvaAdc.length; i++) {
-                if (salvaAdc[i].titulo === excDiv.querySelector("h1").textContent && salvaAdc[i].descricao === excDiv.querySelector("p").textContent) {
-                  salvaAdc.splice(i, 1);
-                  break;
-                }
-              }
-              localStorage.setItem("key", JSON.stringify(salvaAdc));
+            op.excluir(criaPost);
         });
         editBt.addEventListener("click", function(){
-
-            edit.className = "edit-mostrar";
+            op.editar(criaPost);
             
-            var divPai = this.parentNode;
-
-            var editTit = divPai.querySelector("h1");
-            var descTit = divPai.querySelector("p");
-            var imgTit = divPai.querySelector("img");
-
-            inpEditTit.value = editTit.innerHTML;
-            inpEditDesc.value = descTit.innerHTML;
-            inpEditImg.value = imgTit.src;
-
-            att.addEventListener("click", function(){
-                var novoTit = inpEditTit.value;
-                var novoDesc = inpEditDesc.value;
-                var novaImg = inpEditImg.value;
-
-                tit.innerHTML = novoTit;
-                desc.innerHTML = novoDesc;
-                imgTit.src = novaImg;
-
-                for (var i = 0; i < salvaAdc.length; i++) {
-                    if (salvaAdc[i].titulo === novoTit && novoDesc === descTit.innerHTML) {
-                      salvaAdc[i].titulo = novoTit;
-                      salvaAdc[i].descricao = novoDesc;
-                      salvaAdc[i].link = novaImg;
-                      break;
-                    }
-                }
-                localStorage.setItem("key", JSON.stringify(salvaAdc));
-            });
         })
     }
   }
-  
+
+  //Remover do local storage enquanto excluo da pg
   //Classes 
   //Commit's
