@@ -49,7 +49,7 @@ function adicionar(titulo, descricao, link){
     this.link = link;
 }
 adiciona.addEventListener("click", function(){
-    if(inpTit.value == "" || inpDesc.value == "" || inpImg.value == ""){
+    if(inpTit.value.trim() == "" || inpDesc.value.trim() == "" || inpImg.value.trim() == ""){
         warn.className = "warn-mostrar"
         setTimeout(function(){
             warn.className = "warn";
@@ -94,6 +94,14 @@ adiciona.addEventListener("click", function(){
             if (excDiv.classList.contains("classDin")){
                 excDiv.parentNode.removeChild(excDiv);
             }
+            for (var i = 0; i < salvaAdc.length; i++) {
+                if (salvaAdc[i].titulo === excDiv.querySelector("h1").textContent.toLowerCase() && salvaAdc[i].descricao === excDiv.querySelector("p").textContent.toLowerCase()) {
+                  salvaAdc.splice(i, 1);
+                  salvaAdcHTML.splice(i, 1);
+                  break;
+                }
+              }
+              localStorage.setItem("key", JSON.stringify(salvaAdc));
         });
         editBt.addEventListener("click", function(){
 
@@ -101,24 +109,26 @@ adiciona.addEventListener("click", function(){
             
             var divPai = this.parentNode;
 
-            var editTit = divPai.querySelector("h1");
-            var descTit = divPai.querySelector("p");
-            var imgTit = divPai.querySelector("img");
+            let editTit = divPai.querySelector("h1");
+            let descTit = divPai.querySelector("p");
+            let imgTit = divPai.querySelector("img");
 
             inpEditTit.value = editTit.innerHTML;
             inpEditDesc.value = descTit.innerHTML;
             inpEditImg.value = imgTit.src;
 
-
+            
             att.addEventListener("click", function(){
-
-                if(inpEditTit.value == "" || inpEditDesc.value == "" || inpEditImg.value == ""){
+                if(inpEditTit.value.trim() == "" || inpEditDesc.value.trim() == "" || inpEditImg.value.trim() == ""){
                     editWarn.className = "editWarn-mostrar";
                     setTimeout(function(){
                         editWarn.className = "editWarn";
                     }, 3000);
                 }
                 else{
+                    var oldTit = tit.innerHTML;
+                    var oldDesc = desc.innerHTML;
+
                     var novoTit = inpEditTit.value;
                     var novoDesc = inpEditDesc.value;
                     var novaImg = inpEditImg.value;
@@ -126,6 +136,18 @@ adiciona.addEventListener("click", function(){
                     tit.innerHTML = novoTit;
                     desc.innerHTML = novoDesc;
                     imgTit.src = novaImg;
+
+                    for (var i = 0; i < salvaAdc.length; i++) {
+                        if (salvaAdc[i].titulo === oldTit && salvaAdc[i].descricao === oldDesc) {
+                          salvaAdc[i].titulo = novoTit;
+                          salvaAdc[i].descricao = novoDesc;
+                          salvaAdc[i].link = novaImg;
+                          console.log(1);
+                          break;
+                        }
+                    }
+
+                    localStorage.setItem("key", JSON.stringify(salvaAdc));
                 }
             });
         })
@@ -184,6 +206,13 @@ campoBusca.addEventListener("input", function() {
             if (excDiv.classList.contains("classDin")){
                 excDiv.parentNode.removeChild(excDiv);
             }
+            for (var i = 0; i < salvaAdc.length; i++) {
+                if (salvaAdc[i].titulo === excDiv.querySelector("h1").textContent && salvaAdc[i].descricao === excDiv.querySelector("p").textContent) {
+                  salvaAdc.splice(i, 1);
+                  break;
+                }
+              }
+              localStorage.setItem("key", JSON.stringify(salvaAdc));
         });
         editBt.addEventListener("click", function(){
 
@@ -208,11 +237,19 @@ campoBusca.addEventListener("input", function() {
                 desc.innerHTML = novoDesc;
                 imgTit.src = novaImg;
 
+                for (var i = 0; i < salvaAdc.length; i++) {
+                    if (salvaAdc[i].titulo === novoTit && novoDesc === descTit.innerHTML) {
+                      salvaAdc[i].titulo = novoTit;
+                      salvaAdc[i].descricao = novoDesc;
+                      salvaAdc[i].link = novaImg;
+                      break;
+                    }
+                }
+                localStorage.setItem("key", JSON.stringify(salvaAdc));
             });
         })
     }
   }
-
-  //Remover do local storage enquanto excluo da pg
+  
   //Classes 
   //Commit's
