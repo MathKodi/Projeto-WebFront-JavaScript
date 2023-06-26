@@ -15,6 +15,8 @@ const postagens = document.querySelector(".postagens");
 const btPesq = document.querySelector(".btBusca");
 const campoBusca = document.querySelector(".campoBusca");
 const sugestoes = document.querySelector(".sugestoes");
+const warn = document.querySelector(".warn");
+const editWarn = document.querySelector(".editWarn");
 
 var salvaAdc = []; 
 var salvaAdcHTML = [];
@@ -22,10 +24,12 @@ var salvaAdcHTML = [];
 document.addEventListener("DOMContentLoaded", function(){
     if(localStorage.key){
         salvaAdc = JSON.parse(localStorage.getItem("key"));
+        if (salvaAdc == null){
+            salvaAdc = [];
+        }
         conteudo(); 
     };
 })
-
 botao.addEventListener("click",function(){
     caixinha.className = "dialog-mostrar";
     inpTit.value = "";
@@ -45,70 +49,87 @@ function adicionar(titulo, descricao, link){
     this.link = link;
 }
 adiciona.addEventListener("click", function(){
-    let adc = new adicionar(inpTit.value, inpDesc.value, inpImg.value);
-    
-    salvaAdc.push(adc);
-
-    localStorage.setItem("key", JSON.stringify(salvaAdc));
-
-    let criaPost = document.createElement("div");
-    let tit = document.createElement("h1");
-    let desc = document.createElement("p");
-    let img = document.createElement("img");
-    let exc = document.createElement("button");
-    let pExc = document.createElement("p");
-    let editBt = document.createElement("button");
-    let pEdit = document.createElement("p");
-
-    tit.innerHTML = adc.titulo;
-    desc.innerHTML = adc.descricao;
-    img.src = adc.link;
-    pEdit.textContent = "Editar";
-    pExc.textContent = "Excluir";
-    criaPost.classList.add("classDin");
-
-    salvaAdcHTML.push(criaPost);
-
-    exc.appendChild(pExc);
-    editBt.appendChild(pEdit);
-    criaPost.appendChild(tit);
-    criaPost.appendChild(desc);
-    criaPost.appendChild(img);
-    criaPost.appendChild(exc);
-    criaPost.appendChild(editBt);
-    postagens.appendChild(criaPost);
-
-    exc.addEventListener("click", function(){
-        var excDiv = this.parentNode;
-        if (excDiv.classList.contains("classDin")){
-            excDiv.parentNode.removeChild(excDiv);
-        }
-    });
-    editBt.addEventListener("click", function(){
-
-        edit.className = "edit-mostrar";
+    if(inpTit.value == "" || inpDesc.value == "" || inpImg.value == ""){
+        warn.className = "warn-mostrar"
+        setTimeout(function(){
+            warn.className = "warn";
+        }, 3000);
+    }
+    else{
+        let adc = new adicionar(inpTit.value, inpDesc.value, inpImg.value);
         
-        var divPai = this.parentNode;
+        salvaAdc.push(adc);
 
-        var editTit = divPai.querySelector("h1");
-        var descTit = divPai.querySelector("p");
-        var imgTit = divPai.querySelector("img");
+        localStorage.setItem("key", JSON.stringify(salvaAdc));
 
-        inpEditTit.value = editTit.innerHTML;
-        inpEditDesc.value = descTit.innerHTML;
-        inpEditImg.value = imgTit.src;
+        let criaPost = document.createElement("div");
+        let tit = document.createElement("h1");
+        let desc = document.createElement("p");
+        let img = document.createElement("img");
+        let exc = document.createElement("button");
+        let pExc = document.createElement("p");
+        let editBt = document.createElement("button");
+        let pEdit = document.createElement("p");
 
-        att.addEventListener("click", function(){
-            var novoTit = inpEditTit.value;
-            var novoDesc = inpEditDesc.value;
-            var novaImg = inpEditImg.value;
+        tit.innerHTML = adc.titulo;
+        desc.innerHTML = adc.descricao;
+        img.src = adc.link;
+        pEdit.textContent = "Editar";
+        pExc.textContent = "Excluir";
+        criaPost.classList.add("classDin");
 
-            tit.innerHTML = novoTit;
-            desc.innerHTML = novoDesc;
-            imgTit.src = novaImg;
+        salvaAdcHTML.push(criaPost);
 
+        exc.appendChild(pExc);
+        editBt.appendChild(pEdit);
+        criaPost.appendChild(tit);
+        criaPost.appendChild(desc);
+        criaPost.appendChild(img);
+        criaPost.appendChild(exc);
+        criaPost.appendChild(editBt);
+        postagens.appendChild(criaPost);
+
+        exc.addEventListener("click", function(){
+            var excDiv = this.parentNode;
+            if (excDiv.classList.contains("classDin")){
+                excDiv.parentNode.removeChild(excDiv);
+            }
         });
-    })
+        editBt.addEventListener("click", function(){
+
+            edit.className = "edit-mostrar";
+            
+            var divPai = this.parentNode;
+
+            var editTit = divPai.querySelector("h1");
+            var descTit = divPai.querySelector("p");
+            var imgTit = divPai.querySelector("img");
+
+            inpEditTit.value = editTit.innerHTML;
+            inpEditDesc.value = descTit.innerHTML;
+            inpEditImg.value = imgTit.src;
+
+
+            att.addEventListener("click", function(){
+
+                if(inpEditTit.value == "" || inpEditDesc.value == "" || inpEditImg.value == ""){
+                    editWarn.className = "editWarn-mostrar";
+                    setTimeout(function(){
+                        editWarn.className = "editWarn";
+                    }, 3000);
+                }
+                else{
+                    var novoTit = inpEditTit.value;
+                    var novoDesc = inpEditDesc.value;
+                    var novaImg = inpEditImg.value;
+    
+                    tit.innerHTML = novoTit;
+                    desc.innerHTML = novoDesc;
+                    imgTit.src = novaImg;
+                }
+            });
+        })
+    }
 })
 campoBusca.addEventListener("input", function() {
     var pesquisa = campoBusca.value.toLowerCase();
@@ -116,16 +137,16 @@ campoBusca.addEventListener("input", function() {
     var postagensFiltradas = salvaAdcHTML.filter(function(postagem) {
       var titulo = postagem.querySelector("h1").textContent.toLowerCase();
       var descricao = postagem.querySelector("p").textContent.toLowerCase();
-  
+
       return titulo.includes(pesquisa) || descricao.includes(pesquisa);
     });
   
-    while (postagens.firstChild) {
-      postagens.firstChild.remove();
-    }
-  
+    postagens.querySelectorAll("div").forEach(function(div){
+        div.className = "esconder";
+    })
+
     postagensFiltradas.forEach(function(postagem) {
-      postagens.appendChild(postagem);
+      postagem.className = "classDin";
     });
   });
 
@@ -191,3 +212,7 @@ campoBusca.addEventListener("input", function() {
         })
     }
   }
+
+  //Remover do local storage enquanto excluo da pg
+  //Classes 
+  //Commit's

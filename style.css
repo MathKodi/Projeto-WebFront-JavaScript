@@ -124,7 +124,27 @@ body{
     background-image: url(img/home-hero-1200x600.webp);
     background-repeat: no-repeat;
 }
-
+.esconder{
+    display: none;
+}
+.warn{
+    display: none;
+}
+.editWarn{
+    display: none;
+}
+.editWarn-mostrar{
+    display: inherit;
+    font-size: 12px;
+    font-weight: 100px;
+    font-style: italic;
+}
+.warn-mostrar{
+    display: inherit;
+    font-size: 12px;
+    font-weight: 100px;
+    font-style: italic;
+}
 .divtexto{
     margin-top: 75px!important;
     margin-left: -460px!important;
@@ -224,7 +244,7 @@ body{
     top: 150%;
     right: 40%;
     width: 280px;
-    height: 310px;
+    height: 340px;
     font-family: cursive;
     text-align: center;
     justify-content: center;
@@ -241,7 +261,7 @@ body{
     top: 200px;
     right: 40%;
     width: 280px;
-    height: 310px;
+    height: 340px;
     font-family: cursive;
     text-align: center;
     justify-content: center;
