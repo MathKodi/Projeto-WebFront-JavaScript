@@ -1,0 +1,464 @@
+body{
+    margin: 0;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+    box-sizing: border-box;
+}
+
+.divprincipal{
+    background-color: black;
+}
+
+.listatopo{
+    display: flex;
+    color: #a0e080;
+
+    height: 35px;
+    font-weight: 700;
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+    letter-spacing: .9;
+    line-height: .5;
+}
+.novojogo{
+    width: 50%;
+}
+.novojogo p{
+    margin-top: 15px;
+    margin-left: 61px;
+    list-style: none;
+    text-transform: none;
+    font-weight: 9;
+    font-size:11px;
+}
+.navconta{
+    width: 50%;
+}
+.listatopo ul{
+    list-style: none;
+    margin-top: 12px;
+    text-align: right;
+    padding-right: 50px;
+}
+
+.listatopo li{
+    display: inline;
+    padding-right: 20px;
+    font-size: 72%;
+    font-weight: 700;
+    letter-spacing: .08em;
+}
+
+.cabecalho{
+    display: flex;
+    height: 50px;
+    padding: 16px;
+    background-color: #171615;
+}
+.ajuste{
+    display: flex;
+    height: 100%;
+    width: 100%;
+}
+.lista{
+    width: 40%;
+}
+.lista p{
+    color: white;
+    margin-top: 12px;
+    display: inline-table;
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+    list-style: none;
+    line-height: 0;
+    margin-left: 5px;
+    margin-right: 14px;
+    letter-spacing: 0.03cm;
+    font-size: 12px;
+}
+.logo-minecraft{
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    display: inline-flex;
+    width: 20%;
+    height: 50px;
+}
+.logo{
+    width: 235px;
+}
+.botao{
+    width: 40%;
+    display: inline-flex;
+    justify-content: right;
+}
+.botaocabecalho{
+    font-family: Noto Sans, sans-serif;
+    background-color: #3c8527;
+    height: 45px;
+    width: 240px;
+    margin-top: 3px;
+    margin-right: 10px;
+    display: block;
+    color: white;
+    font-size: 20,5px;
+    text-align: center;
+    position: relative;
+    justify-content: right;
+    font-weight: 700;
+    letter-spacing: 0.05rem;
+    text-shadow: black;
+    border: 0.125rem solid var(--black-02);
+    box-shadow: inset 0 4px #6bc349,inset 0 -4px #2a631c,0 4px rgba(0,0,0,0.25);
+}
+.principal{
+    width: auto;
+}
+.bemvindo{
+    background-color: #000!important;
+}
+.divimg{
+    width: 100%;
+    height: 600px;
+    padding: 0;
+    display: flex;
+    background-position: center center;
+    justify-content: center;
+    background-image: url(img/home-hero-1200x600.webp);
+    background-repeat: no-repeat;
+}
+
+.divtexto{
+    margin-top: 75px!important;
+    margin-left: -460px!important;
+    width: 540px;
+    color:white;
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+
+}
+
+.divtexto  h1{
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif,"Noto Sans";
+    font-weight: 700;
+    font-size: 36px;
+    line-height: 40px;
+    letter-spacing: 1px;
+    width: 500px;
+    margin-bottom: 5px;
+}
+
+.divtexto  p{
+    margin-top: 10px;
+    font-size: 18px;
+    line-height: 26px;
+    width: 510px;
+}
+
+.botaoprincipal{
+    background-color: #3c8527;
+    height: 48px;
+    width: 270px;
+    color: white;
+    margin-top: 40px;
+    padding-top: 25px;
+    padding-left: 50px;
+    font-size: 19.2px;
+    letter-spacing: 1px;
+    font-weight: 700;
+    -webkit-box-shadow: inset 0 4px #6bc349, inset 0 -4px #2a631c, 0 4px rgba(0,0,0,.25);
+    box-shadow: inset 0 4px #6bc349,inset 0 -4px #2a631c,0 4px rgba(0,0,0,.25);
+}
+.maisjogos{
+    background-image: url(fundo-dark-mine.png);
+    background-repeat: repeat;
+    padding: 50px 0 0 0!important;
+    height: 800px;
+}
+.container{
+    display: flex;
+    justify-content: center;
+    margin-right: auto;
+    margin-left: auto;
+    max-width: 1140px!important;
+    padding: 0!important;
+    height: 780px;
+}
+.divbranca{
+    display: flex;
+    background-color: #eee;
+    width: 5000px;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.divbranca h2{
+    align-items: none;
+    padding-bottom: 600px;
+    padding-left: 65%;
+    font-size: 30px;
+    font-weight: 800;
+    width: 100%;
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif,"Noto Sans";
+}
+.txt{
+    display:block
+}
+.hamburguer{
+    display: none;
+}
+.botaoadiciona{
+    box-shadow: inset 0 4px #6bc349,inset 0 -4px #2a631c,0 4px rgba(0,0,0,.25);    color: black;
+    font-size: 2vw;
+    font-family: Helvetica Neue,Helvetica,Arial,sans-serif,"Noto Sans";
+    display: flex;
+    margin-top: 650px;
+    margin-right: 480px;
+    background-color: #2a631c;
+    border: solid;
+    border-color: rgb(31, 121, 31);
+    border-style:outset;
+}
+.dialog{
+    display: none;
+}
+.edit{
+    display: none;
+}
+.edit-mostrar{
+    position: absolute;
+    border: solid;
+    border-width: 7px;
+    border-style:outset;
+    border-color: burlywood;
+    padding: 10px;
+    top: 150%;
+    right: 40%;
+    width: 280px;
+    height: 310px;
+    font-family: cursive;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(to right, lightblue, blue);
+}
+.postagens div{
+    width: inherit;
+}
+.dialog-mostrar{
+    position: absolute;
+    border: solid;
+    border-width: 7px;
+    border-style:outset;
+    border-color: burlywood;
+    padding: 10px;
+    top: 150%;
+    right: 40%;
+    width: 280px;
+    height: 310px;
+    font-family: cursive;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    background-image: linear-gradient(to right, lightblue, blue);
+}
+.container-grid{
+    display:grid;
+    justify-content: space-evenly;
+    align-items: center;
+    float:left;
+    max-height: auto;
+}
+.postagens{
+    grid-area: auto;
+    float:left;
+    padding: 15px;
+    top: 250px;
+}
+@media screen and (max-width: 1080px){
+    .lista{
+        display: none;
+    }
+    .logo-minecraft{
+        margin-left: 0px;
+        padding-right: 100px;
+    }
+}
+@media only screen and (max-width: 600px){
+    *{
+        margin: 0;
+    }
+    .botao{
+        display:none;
+    }
+    .bemvindo{
+        width: 100%;
+    }
+    .ajuste{
+        padding-top: 0vw;
+    }
+    .cabecalho{
+        background-color: #171615;
+        width: 100%;
+        justify-content: space-between;
+        height: 9vw;
+    }
+    .divprincipal{
+        background-color: black;
+    }
+    .novojogo{
+        width: 100%;
+    }
+    .listatopo{
+        display: flex;
+        color: #a0e080;
+        justify-content: center;
+        height: 7vw;
+        font-weight: 700;
+        font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+        letter-spacing: .9;
+        text-transform: uppercase;
+        line-height: .8;
+        width: 200%;
+        background-color: black;
+    }
+    .listatopo ul{
+        display: none;
+    }
+    .hamburguer{
+        display: inline;
+        padding-bottom: 3px;
+        margin-left: 1px;
+        width: 10vw;
+        height: 10px;
+    }
+    .listatopo p{
+        margin-right: 50vw;
+        margin-top: 3vw;
+        font-weight: 500;
+        font-size: 2.6vw;
+        text-transform: none;
+        text-align: center;
+    }
+    .lista{
+        display: none;
+    }
+    .logo-minecraft{
+        justify-content: center;
+        padding-right: 35vw;
+        padding-top: -5vw;
+    }
+    .lista  ul{
+        display: flex;
+        color: white;
+        margin-top: 2.4vw;
+        margin-right: auto;
+    }
+    .lista  li{
+        font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+        list-style: none;
+        line-height: 1.5;
+        font-size: 0.5vw;
+        padding-left: 1.8vw;
+        letter-spacing: 0.05cm;
+        font-size: 13px;
+        margin-left: auto;
+        margin-top: auto;
+        justify-content: right;
+    }
+    .lista li img{
+        font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans","Liberation Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+        padding-left: -1;
+        margin-top: auto;
+    }
+    
+    .logo{
+        width: 44vw;
+        height: 9vw;
+        padding-left: 16vw;
+        padding-bottom: 3.6vw
+    }
+    .botaocabecalho{
+        display: flex;
+    }
+    .divimg{
+        display: flex;
+        justify-content: center;
+    }
+    
+    .divimg  img{
+        width: 100%;
+        height: 160vw;
+    }
+    
+    .divtexto{
+        color: white;
+        position: flex;
+        width: 100%;
+        padding-left: 110%;
+        font-family: Helvetica Neue,Helvetica,Arial,sans-serif;
+    
+    }
+    
+    .divtexto  h1{
+        font-size: 8.5vw;
+        margin-top: 0vw;
+        width: 100%;
+        letter-spacing: 0.5vw;
+        line-height: 10vw;
+        text-transform: uppercase;
+        text-align: center;
+    }
+    
+    .divtexto  p{
+        padding-top: 0vw;
+        font-size: 4.5vw;
+        line-height: 7vw;
+        padding-left: 1vw;
+        width: 100%;
+        letter-spacing: 0.02cm;
+        font-weight: 49;
+        text-align: center;
+    }
+    .botaoprincipal{
+        width: 66%;
+        height: 9%;
+        margin-left: 13%
+    }
+    .botaoprincipal span{
+        display: inline-block;
+        height: 10px;
+        
+    }
+    .fundopreto{
+        display: flex;
+        justify-content: center;
+    }
+    .fundopreto{
+        width: 200vw;
+        height: 200vw;
+        background-image: url(https://www.minecraft.net/content/dam/minecraft/backgrounds/bg-wool-dark.png);
+        display:flex;
+    }
+    .divbranca{
+        display: block;
+        background-color: #eee;
+        width: 90%;
+        height: 150vw;
+        margin-top: 1vw;
+        text-align: center;
+    }
+    .divbranca h2{
+        padding-top: 12vw;
+        margin-top: 1vw;
+        padding-left: 1vw;
+        font-size: 7vw;
+        font-weight: 2000;
+        text-align: center;
+        font-family: Helvetica Neue,Helvetica,Arial,sans-serif,"Noto Sans";
+    }
+    .botaoadiciona{
+        color: black;
+        font-size: 7vw;
+        font-family: Helvetica Neue,Helvetica,Arial,sans-serif,"Noto Sans";
+        display: flex;
+    }
+}
+
+
