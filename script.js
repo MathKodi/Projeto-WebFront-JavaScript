@@ -19,12 +19,20 @@ const sugestoes = document.querySelector(".sugestoes");
 var salvaAdc = []; 
 var salvaAdcHTML = [];
 
+document.addEventListener("DOMContentLoaded", function(){
+    if(localStorage.key){
+        salvaAdc = JSON.parse(localStorage.getItem("key"));
+        conteudo(); 
+    };
+})
+
 botao.addEventListener("click",function(){
     caixinha.className = "dialog-mostrar";
     inpTit.value = "";
     inpDesc.value = "";
     inpImg.value = "";
 });
+
 sair.addEventListener("click", function(){
     caixinha.className = "dialog";
 });
@@ -41,7 +49,7 @@ adiciona.addEventListener("click", function(){
     
     salvaAdc.push(adc);
 
-    localStorage.setItem("key", salvaAdc);
+    localStorage.setItem("key", JSON.stringify(salvaAdc));
 
     let criaPost = document.createElement("div");
     let tit = document.createElement("h1");
@@ -120,3 +128,66 @@ campoBusca.addEventListener("input", function() {
       postagens.appendChild(postagem);
     });
   });
+
+  function conteudo(){
+    for(let i=0; i<salvaAdc.length; i++){
+        let criaPost = document.createElement("div");
+        let tit = document.createElement("h1");
+        let desc = document.createElement("p");
+        let img = document.createElement("img");
+        let exc = document.createElement("button");
+        let pExc = document.createElement("p");
+        let editBt = document.createElement("button");
+        let pEdit = document.createElement("p");
+
+        tit.innerHTML = salvaAdc[i].titulo;
+        desc.innerHTML = salvaAdc[i].descricao;
+        img.src = salvaAdc[i].link;
+        pEdit.textContent = "Editar";
+        pExc.textContent = "Excluir";
+        criaPost.classList.add("classDin");
+
+        salvaAdcHTML.push(criaPost);
+
+        exc.appendChild(pExc);
+        editBt.appendChild(pEdit);
+        criaPost.appendChild(tit);
+        criaPost.appendChild(desc);
+        criaPost.appendChild(img);
+        criaPost.appendChild(exc);
+        criaPost.appendChild(editBt);
+        postagens.appendChild(criaPost);
+
+        exc.addEventListener("click", function(){
+            var excDiv = this.parentNode;
+            if (excDiv.classList.contains("classDin")){
+                excDiv.parentNode.removeChild(excDiv);
+            }
+        });
+        editBt.addEventListener("click", function(){
+
+            edit.className = "edit-mostrar";
+            
+            var divPai = this.parentNode;
+
+            var editTit = divPai.querySelector("h1");
+            var descTit = divPai.querySelector("p");
+            var imgTit = divPai.querySelector("img");
+
+            inpEditTit.value = editTit.innerHTML;
+            inpEditDesc.value = descTit.innerHTML;
+            inpEditImg.value = imgTit.src;
+
+            att.addEventListener("click", function(){
+                var novoTit = inpEditTit.value;
+                var novoDesc = inpEditDesc.value;
+                var novaImg = inpEditImg.value;
+
+                tit.innerHTML = novoTit;
+                desc.innerHTML = novoDesc;
+                imgTit.src = novaImg;
+
+            });
+        })
+    }
+  }
